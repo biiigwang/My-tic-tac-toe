@@ -3,8 +3,8 @@ on: push
 
 env:
   GODOT_VERSION: 4.2.2
-  EXPORT_NAME: test-project
-  PROJECT_PATH: test-project
+  EXPORT_NAME: My-tic-tac-toe 
+  PROJECT_PATH: My-tic-tac-toe 
 
 jobs:
   export-windows:
