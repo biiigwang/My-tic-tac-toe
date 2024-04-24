@@ -1,0 +1,84 @@
+[gd_scene load_steps=6 format=3 uid="uid://cx5qef35hds3n"]
+
+[ext_resource type="Script" path="res://script/main_menu.gd" id="1_b1mrw"]
+[ext_resource type="FontFile" uid="uid://b6hvc1s7ei6uj" path="res://Font/AlimamaDongFangDaKai-Regular/AlimamaDongFangDaKai-Regular.ttf" id="2_38p1n"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xaok2"]
+bg_color = Color(0.196078, 0.639216, 0.890196, 1)
+
+[sub_resource type="SystemFont" id="SystemFont_a12t5"]
+font_names = PackedStringArray("Comic Sans MS")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b1vb6"]
+bg_color = Color(0.509804, 0.788235, 0.45098, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.811765, 0.831373, 0.45098, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource("1_b1mrw")
+
+[node name="Background" type="Panel" parent="."]
+offset_right = 900.0
+offset_bottom = 600.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_xaok2")
+
+[node name="TitleLabel" type="RichTextLabel" parent="Background"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -242.0
+offset_top = 55.0
+offset_right = 242.0
+offset_bottom = 145.0
+grow_horizontal = 2
+theme_override_colors/default_color = Color(0.921569, 0.439216, 0.388235, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = SubResource("SystemFont_a12t5")
+theme_override_font_sizes/normal_font_size = 60
+bbcode_enabled = true
+text = "[wave]My Tic-Toc-Tae[/wave]"
+
+[node name="SingleModeButton" type="Button" parent="."]
+offset_left = 350.0
+offset_top = 300.0
+offset_right = 550.0
+offset_bottom = 356.0
+theme_override_fonts/font = ExtResource("2_38p1n")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_b1vb6")
+text = "Single Mode"
+
+[node name="MultiPlayerModeButton" type="Button" parent="SingleModeButton"]
+layout_mode = 0
+offset_top = 80.0
+offset_right = 200.0
+offset_bottom = 136.0
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_38p1n")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_b1vb6")
+text = "Multi-player Mode"
+
+[node name="QuitButton" type="Button" parent="SingleModeButton"]
+layout_mode = 0
+offset_top = 160.0
+offset_right = 200.0
+offset_bottom = 216.0
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_38p1n")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_b1vb6")
+text = "Quit
+"
+
+[connection signal="pressed" from="SingleModeButton" to="." method="_on_single_mode_button_pressed"]
+[connection signal="pressed" from="SingleModeButton/MultiPlayerModeButton" to="." method="_on_multi_player_mode_button_pressed"]
+[connection signal="pressed" from="SingleModeButton/QuitButton" to="." method="_on_quit_button_pressed"]

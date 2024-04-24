@@ -4,7 +4,7 @@
 
 ## Introduction
 
-This is a tic-toe game written using the [Godot] (<https://github.com/godotengine/godot>) open source game engine.
+This is a tic-toe game written using the [Godot](https://github.com/godotengine/godot) open source game engine.
 
 As a practice project for the author to learn the Godot engine, this project is an entry-level project.
 

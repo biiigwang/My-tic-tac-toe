@@ -13,6 +13,16 @@
             "debug_paths": false,
             "debug_navigation": false,
             "additional_options": ""
-        }
+        },
+        {
+            "name": "GDScript2: Launch Project",
+            "type": "godot",
+            "request": "launch",
+            "project": "${workspaceFolder}",
+            "debug_collisions": false,
+            "debug_paths": false,
+            "debug_navigation": false,
+            "additional_options": ""
+        }        
     ]
 }

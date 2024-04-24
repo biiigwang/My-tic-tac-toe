@@ -11,14 +11,19 @@ config_version=5
 [application]
 
 config/name="My-tic-tac-toe"
-run/main_scene="res://main.tscn"
+run/main_scene="res://scene/main_menu.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Global="*res://script/global.gd"
 
 [display]
 
 window/size/viewport_width=900
 window/size/viewport_height=600
+window/stretch/mode="canvas_items"
 
 [filesystem]
 
@@ -29,3 +34,4 @@ import/blender/enabled.web=true
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true
