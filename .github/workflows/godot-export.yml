@@ -1,4 +1,4 @@
-            - name: Godot Export
+- name: Godot Export
   # You may pin to the exact commit or the version.
   # uses: firebelley/godot-export@b0b8d3e350b7e4c376a865057961fa36e8ec3005
   uses: firebelley/godot-export@v5.2.1
