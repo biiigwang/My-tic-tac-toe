@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dl4bkwe2ubjoj"]
+
+[ext_resource type="Texture2D" uid="uid://b3p703lshvgqi" path="res://assets/picture/counterclockwise_arrows.svg" id="1_uqr5x"]
+[ext_resource type="Script" path="res://scene/ui_scene/loading_arrow.gd" id="2_gc44s"]
+
+[node name="LoadingArrow" type="Sprite2D"]
+texture = ExtResource("1_uqr5x")
+script = ExtResource("2_gc44s")

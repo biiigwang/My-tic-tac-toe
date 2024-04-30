@@ -54,23 +54,24 @@ func _input(event):
 				if grid_data[grid_pos.y][grid_pos.x] == 0:
 					grid_data[grid_pos.y][grid_pos.x] = now_player
 					# Place that play's marker
-					create_marker(now_player, grid_pos * cell_size + Vector2i(cell_size / 2, cell_size / 2))
+					create_marker.rpc(now_player, grid_pos * cell_size + Vector2i(cell_size / 2, cell_size / 2))
 					
 					moves += 1
 
 					# Print grid data
 					print("moves:%s, grid_data:%s" % [moves, grid_data])
 
-					var win_player = check_win()
-					if win_player != 0 or moves >= 9:
-						game_over_handle(win_player)
+					if multiplayer.is_server():
+						var win_player = check_win()
+						if win_player != 0 or moves >= 9:
+							game_over_handle.rpc(win_player)
 					
 					now_player *= - 1
 
 					# Update the panel marker
-					temp_marker.queue_free()
-					create_marker(now_player, player_panel_pos + Vector2i(cell_size / 2, cell_size / 2), true)
+					create_marker.rpc(now_player, player_panel_pos + Vector2i(cell_size / 2, cell_size / 2), true)
 
+@rpc("any_peer", "call_local", "reliable")
 func new_game():
 	print("Start new game")
 	# Set up first player
@@ -102,7 +103,7 @@ func new_game():
 	# Continue this scene tree
 	get_tree().paused = false
 
-@rpc("any_peer", "reliable")
+@rpc("any_peer", "call_local","reliable")
 func create_marker(player, position, temp=false):
 	# Create a marker node and add it as a child
 	if player == 1:
@@ -110,12 +111,16 @@ func create_marker(player, position, temp=false):
 		circle.position = position
 		add_child(circle)
 		if temp:
+			if temp_marker != null:
+				temp_marker.queue_free()
 			temp_marker = circle
 	else:
 		var cross = cross_sence.instantiate()
 		cross.position = position
 		add_child(cross)
 		if temp:
+			if temp_marker != null:
+				temp_marker.queue_free()
 			temp_marker = cross
 
 func check_win() -> int:
@@ -136,6 +141,7 @@ func check_win() -> int:
 
 	return win_player
 
+@rpc("authority", "call_local", "reliable")
 func game_over_handle(winner: int):
 	get_tree().paused = true
 	$GameOverMenu.show()

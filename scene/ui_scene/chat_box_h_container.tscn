@@ -1,0 +1,61 @@
+[gd_scene load_steps=5 format=3 uid="uid://b2q01yykjke6r"]
+
+[ext_resource type="FontFile" uid="uid://b6hvc1s7ei6uj" path="res://Font/AlimamaDongFangDaKai-Regular/AlimamaDongFangDaKai-Regular.ttf" id="1_fj5j1"]
+[ext_resource type="Script" path="res://scene/ui_scene/chat_box_h_container.gd" id="1_h7wx7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k4ofr"]
+bg_color = Color(0, 0, 0, 0.470588)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fm1n2"]
+bg_color = Color(0.304574, 0.618683, 0.923847, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="ChatBoxHContainer" type="VBoxContainer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 463.0
+offset_top = -363.0
+offset_right = 863.0
+offset_bottom = -64.0
+grow_vertical = 0
+script = ExtResource("1_h7wx7")
+metadata/_edit_lock_ = true
+
+[node name="DisplayBoard" type="RichTextLabel" parent="."]
+custom_minimum_size = Vector2(2.08165e-12, 300)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_k4ofr")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="TypeLine" type="LineEdit" parent="HBoxContainer"]
+custom_minimum_size = Vector2(300, 45)
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+
+[node name="SendButton" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(100, 2.08165e-12)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_fj5j1")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_fm1n2")
+text = "Send"
+
+[connection signal="pressed" from="HBoxContainer/SendButton" to="." method="_on_send_button_pressed"]

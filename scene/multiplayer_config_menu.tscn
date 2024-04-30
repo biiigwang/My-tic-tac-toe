@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cvyjx3fc0bum0"]
+[gd_scene load_steps=9 format=3 uid="uid://cvyjx3fc0bum0"]
 
 [ext_resource type="Script" path="res://script/multiplayer_config_menu.gd" id="1_wcof1"]
+[ext_resource type="PackedScene" uid="uid://dl4bkwe2ubjoj" path="res://scene/ui_scene/loading_arrow.tscn" id="2_24u6a"]
 [ext_resource type="FontFile" uid="uid://b6hvc1s7ei6uj" path="res://Font/AlimamaDongFangDaKai-Regular/AlimamaDongFangDaKai-Regular.ttf" id="2_q748o"]
+[ext_resource type="PackedScene" uid="uid://b2q01yykjke6r" path="res://scene/ui_scene/chat_box_h_container.tscn" id="4_qwomd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vo8j2"]
 bg_color = Color(0, 0.690196, 0.654902, 1)
@@ -42,31 +44,30 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_vo8j2")
 
-[node name="MessageContent" type="PanelContainer" parent="Background"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -200.0
-offset_top = -250.0
-offset_right = 200.0
-offset_bottom = 250.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_ahblv")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Background/MessageContent"]
-layout_mode = 2
-
-[node name="InfoTitle" type="RichTextLabel" parent="Background/MessageContent/VBoxContainer"]
+[node name="InfoTitle" type="RichTextLabel" parent="Background"]
 custom_minimum_size = Vector2(2.08165e-12, 100)
 layout_mode = 2
+offset_left = 263.0
+offset_top = 19.0
+offset_right = 663.0
+offset_bottom = 119.0
 theme_override_fonts/normal_font = ExtResource("2_q748o")
 theme_override_font_sizes/normal_font_size = 60
 bbcode_enabled = true
 text = "[center]Lobby[/center] "
+metadata/_edit_lock_ = true
+
+[node name="MessageContent" type="PanelContainer" parent="Background"]
+layout_mode = 1
+offset_left = 40.0
+offset_top = 392.0
+offset_right = 440.0
+offset_bottom = 536.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ahblv")
+metadata/_edit_lock_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/MessageContent"]
+layout_mode = 2
 
 [node name="IpContainer" type="HBoxContainer" parent="Background/MessageContent/VBoxContainer"]
 layout_mode = 2
@@ -112,6 +113,15 @@ theme_override_font_sizes/font_size = 25
 theme_override_styles/normal = SubResource("StyleBoxFlat_2avh7")
 text = "Create Game"
 
+[node name="StartButton" type="Button" parent="Background/MessageContent/VBoxContainer/ButtonContainer"]
+visible = false
+custom_minimum_size = Vector2(180, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_q748o")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_2avh7")
+text = "Start"
+
 [node name="PlaceHolderLabel" type="Label" parent="Background/MessageContent/VBoxContainer/ButtonContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -124,11 +134,29 @@ theme_override_font_sizes/font_size = 25
 theme_override_styles/normal = SubResource("StyleBoxFlat_yk0oh")
 text = "Join Game"
 
-[node name="MsgLabel" type="RichTextLabel" parent="Background/MessageContent/VBoxContainer"]
+[node name="ReadyButton" type="Button" parent="Background/MessageContent/VBoxContainer/ButtonContainer"]
+visible = false
+custom_minimum_size = Vector2(180, 50)
 layout_mode = 2
-bbcode_enabled = true
+theme_override_fonts/font = ExtResource("2_q748o")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_yk0oh")
+text = "Ready"
+
+[node name="LoadingArrow" parent="Background/MessageContent/VBoxContainer/ButtonContainer" instance=ExtResource("2_24u6a")]
+position = Vector2(380, 25)
+scale = Vector2(0.5, 0.5)
+omega = 1.5
+
+[node name="ChatBoxHContainer" parent="Background" node_paths=PackedStringArray("consumer_node") instance=ExtResource("4_qwomd")]
+layout_mode = 1
+offset_top = -413.0
+offset_right = 867.0
+consumer_node = NodePath("../..")
+enable_bbcode = true
 
 [node name="UsernameTextEdit" type="TextEdit" parent="Background"]
+visible = false
 layout_mode = 0
 offset_left = 781.0
 offset_top = 551.0
@@ -137,6 +165,7 @@ offset_bottom = 595.0
 text = "Username"
 
 [node name="TestButton" type="Button" parent="."]
+visible = false
 offset_right = 150.0
 offset_bottom = 56.0
 text = "Test Button"
@@ -144,6 +173,8 @@ text = "Test Button"
 [connection signal="sig_create_server" from="." to="." method="_on_sig_create_server"]
 [connection signal="sig_join_game" from="." to="." method="_on_sig_join_game"]
 [connection signal="pressed" from="Background/MessageContent/VBoxContainer/ButtonContainer/CreateServerButton" to="." method="_on_create_server_button_pressed"]
+[connection signal="pressed" from="Background/MessageContent/VBoxContainer/ButtonContainer/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="Background/MessageContent/VBoxContainer/ButtonContainer/JoinGameButton" to="." method="_on_join_game_button_pressed"]
+[connection signal="pressed" from="Background/MessageContent/VBoxContainer/ButtonContainer/ReadyButton" to="." method="_on_ready_button_pressed"]
 [connection signal="text_changed" from="Background/UsernameTextEdit" to="." method="_on_text_edit_text_changed"]
 [connection signal="pressed" from="TestButton" to="." method="_on_test_button_pressed"]
