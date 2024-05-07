@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://dd1y03v76st4r"]
+
+[ext_resource type="Script" path="res://scene/tools/get_ip.gd" id="1_r70v5"]
+[ext_resource type="FontFile" uid="uid://b6hvc1s7ei6uj" path="res://Font/AlimamaDongFangDaKai-Regular/AlimamaDongFangDaKai-Regular.ttf" id="2_iypgt"]
+
+[node name="GetIp" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 250.0
+offset_bottom = 43.0
+script = ExtResource("1_r70v5")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="OptionButton" type="OptionButton" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_iypgt")
+theme_override_font_sizes/font_size = 25
+text_overrun_behavior = 3
+clip_text = true
+
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer/OptionButton"]
+visible = false
+layout_mode = 0
+offset_top = 66.0
+offset_right = 150.0
+offset_bottom = 122.0
+editable = false
+
+[connection signal="item_selected" from="HBoxContainer/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="pressed" from="HBoxContainer/OptionButton" to="." method="_on_option_button_pressed"]

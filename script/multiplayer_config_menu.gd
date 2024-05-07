@@ -10,16 +10,19 @@ signal sig_chat_receive(new_msg: String, is_bbcode: bool)
 @onready var create_button = $Background/MessageContent/VBoxContainer/ButtonContainer/CreateServerButton
 @onready var join_button = $Background/MessageContent/VBoxContainer/ButtonContainer/JoinGameButton
 @onready var ip_label = $Background/MessageContent/VBoxContainer/IpContainer/LineEdit
+@onready var ip_getter = $Background/MessageContent/VBoxContainer/IpContainer/GetIp
 @onready var username_label = $Background/MessageContent/VBoxContainer/UsernameContainer/LineEdit
 @onready var loading_arrow = $Background/MessageContent/VBoxContainer/ButtonContainer/LoadingArrow
 @onready var chat_box = $Background/ChatBoxHContainer
 @onready var start_buttion = $Background/MessageContent/VBoxContainer/ButtonContainer/StartButton
 @onready var ready_button = $Background/MessageContent/VBoxContainer/ButtonContainer/ReadyButton
+@onready var message_box = $MessageBox
 
 func _ui_ready():
 	ready_button.hide()
 	start_buttion.hide()
 	loading_arrow.hide()
+	ip_getter.hide()
 	loading_arrow.self_modulate.a = 0.8
 
 func _loading_scene(isShow: bool):
@@ -120,6 +123,8 @@ func creating_game():
 
 	self_player_info["net_id"] = 1
 	players[1] = self_player_info
+	ip_label.hide()
+	ip_getter.show()
 
 func joining_game(address=""):
 	if address.is_empty() or not address.is_valid_ip_address():
@@ -214,12 +219,13 @@ func _on_start_button_pressed():
 	_update_player.rpc(self_player_info)
 
 func _on_test_button_pressed():
-	var ip_string = ip_label.get_text()
-	var username_string = username_label.get_text()
-	if username_string == "":
-		username_string = "Defualt name"
-	print_debug("Ip: %s, Username: %s" % [ip_string, username_string])
-	sig_chat_receive.emit("New chat massage")
+	if message_box.visible:
+		message_box.hide()
+	else:
+		message_box.msg_type = "Info"
+		message_box.button_num = 1
+		message_box.message = "Hello, Message Box!"
+		message_box.show()
 
 func _on_ready_button_pressed():
 	sig_player_ready.emit()
@@ -230,3 +236,7 @@ func _on_ready_button_pressed():
 @rpc("authority", "call_local", "reliable")
 func goto_main_game():
 	Global.goto_scene("res://scene/main_game.tscn")
+
+func _on_get_ip_ip_copied():
+	message_box.show_message("Info", "The ip address has been copied.", 1)
+	print_debug("The ip address has been copied.")

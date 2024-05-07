@@ -1,0 +1,151 @@
+[gd_scene load_steps=9 format=3 uid="uid://o5coe6w3cgc7"]
+
+[ext_resource type="Script" path="res://scene/ui_scene/message_box.gd" id="1_v0mxi"]
+[ext_resource type="FontFile" uid="uid://b6hvc1s7ei6uj" path="res://Font/AlimamaDongFangDaKai-Regular/AlimamaDongFangDaKai-Regular.ttf" id="2_f2hu7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mx8eb"]
+bg_color = Color(0.172549, 0.172549, 0.172549, 0.368627)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6domd"]
+bg_color = Color(0.835294, 0.835294, 0.835294, 1)
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0.00820202, 0.00820202, 0.00820202, 0.6)
+shadow_size = 5
+shadow_offset = Vector2(5, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ubh68"]
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0.129559, 0.129558, 0.129558, 0.6)
+shadow_size = 2
+shadow_offset = Vector2(1.5, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nj0l2"]
+bg_color = Color(0.836755, 0.836755, 0.836755, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_isrme"]
+bg_color = Color(0.482261, 0.725631, 0.518616, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t5gl7"]
+bg_color = Color(0.824336, 0.546064, 0.427627, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="MessageBox" type="Control"]
+custom_minimum_size = Vector2(300, 250)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_v0mxi")
+
+[node name="Mask" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -175.0
+offset_right = 300.0
+offset_bottom = 175.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_mx8eb")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_6domd")
+
+[node name="BoxBody" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitlePanel" type="Panel" parent="BoxBody"]
+custom_minimum_size = Vector2(2.08165e-12, 60)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ubh68")
+
+[node name="PlaceHolder1" type="Control" parent="BoxBody"]
+custom_minimum_size = Vector2(2.08165e-12, 20)
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="BoxBody"]
+custom_minimum_size = Vector2(2.08165e-12, 60)
+layout_mode = 2
+size_flags_vertical = 3
+focus_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("2_f2hu7")
+theme_override_font_sizes/normal_font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_nj0l2")
+bbcode_enabled = true
+fit_content = true
+selection_enabled = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BoxBody"]
+custom_minimum_size = Vector2(2.08165e-12, 56)
+layout_mode = 2
+
+[node name="PlaceHolder1" type="Control" parent="BoxBody/HBoxContainer"]
+custom_minimum_size = Vector2(40, 2.08165e-12)
+layout_mode = 2
+
+[node name="Button1" type="Button" parent="BoxBody/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_f2hu7")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_isrme")
+text = "Yes"
+
+[node name="PlaceHolder2" type="Control" parent="BoxBody/HBoxContainer"]
+custom_minimum_size = Vector2(40, 2.08165e-12)
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="BoxBody/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_f2hu7")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_t5gl7")
+text = "No"
+
+[node name="PlaceHolder3" type="Control" parent="BoxBody/HBoxContainer"]
+custom_minimum_size = Vector2(40, 2.08165e-12)
+layout_mode = 2
+
+[node name="PlaceHolder2" type="Control" parent="BoxBody"]
+custom_minimum_size = Vector2(2.08165e-12, 20)
+layout_mode = 2
+
+[connection signal="pressed" from="BoxBody/HBoxContainer/Button1" to="." method="_on_button_1_pressed"]
+[connection signal="pressed" from="BoxBody/HBoxContainer/Button2" to="." method="_on_button_2_pressed"]
