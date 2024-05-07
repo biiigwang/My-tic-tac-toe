@@ -4,6 +4,7 @@ extends Control
 @export_enum("one:1", "two:2") var button_num: int = 2
 @export_enum("Info", "Warn", "Error") var msg_type: String = "Info"
 @onready var title: Panel = $BoxBody/TitlePanel
+@onready var title_label: Label = $BoxBody/TitlePanel/Label
 @onready var massage_box: RichTextLabel = $BoxBody/RichTextLabel
 @onready var body_background = $Panel
 @onready var button1 = $BoxBody/HBoxContainer/Button1
@@ -23,9 +24,9 @@ func _get_title_color(type: String) -> Color:
 	if type == "Info":
 		ret_color = Color.SEA_GREEN
 	elif type == "Warn":
-		ret_color = Color.LIGHT_YELLOW
+		ret_color = Color.ORANGE
 	elif type == "Error":
-		ret_color = Color.ORANGE_RED
+		ret_color = Color.RED
 	else:
 		ret_color = Color.LIGHT_SLATE_GRAY
 	return ret_color
@@ -35,6 +36,7 @@ func show_message(type: String, msg: String, b_num=1):
 	var new_stylebox_panel = title.get_theme_stylebox("panel").duplicate()
 	new_stylebox_panel.bg_color = _get_title_color(type)
 	title.add_theme_stylebox_override("panel", new_stylebox_panel)
+	title_label.text = type.to_upper()
 
 	_ui_button_init(b_num)
 

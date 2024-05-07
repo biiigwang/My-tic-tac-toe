@@ -127,8 +127,6 @@ func creating_game():
 	ip_getter.show()
 
 func joining_game(address=""):
-	if address.is_empty() or not address.is_valid_ip_address():
-		address = DEFAULT_SERVER_IP
 	var peer = ENetMultiplayerPeer.new()
 	var error = peer.create_client(address, PORT)
 	if error:
@@ -182,10 +180,15 @@ func _on_sig_create_server():
 
 func _on_sig_join_game():
 	print("\"Join Game\" button was pressed")
+	var ip_address = ip_label.text
+	if ip_address.is_empty() or not ip_address.is_valid_ip_address():
+		message_box.show_message("Warn", "Please fill in the host IP address!", 1)
+		return
+		# address = DEFAULT_SERVER_IP	
 	create_button.set_disabled(true)
 	join_button.set_disabled(true)
 	update_self_player_info()
-	joining_game(ip_label.text)
+	joining_game(ip_address)
 
 func _on_player_connected(peer_id):
 	print_debug("[Info] Player connected! id: {%s}" % peer_id)
